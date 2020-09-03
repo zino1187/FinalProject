@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.last.app.domain.Board" alias="Board"/>
+		<typeAlias type="com.last.app.domain.Member" alias="Member"/>
+	</typeAliases>
+	<mappers>
+		<!-- oracle 용 Mapper  -->
+		<mapper resource="mybatis/oracle/BoardMapper.xml"/>
+		<mapper resource="mybatis/oracle/MemberMapper.xml"/>
+		
+		<!-- mysql 용 Mapper  -->
+		<mapper resource="mybatis/mysql/BoardMapper.xml"/>
+		<mapper resource="mybatis/mysql/MemberMapper.xml"/>
+	</mappers>
+</configuration>
+
+
+
+
+
+
+

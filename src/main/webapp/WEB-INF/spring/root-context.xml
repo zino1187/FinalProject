@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- 데이터베이스 관련 빈 등록 -->
+	<jee:jndi-lookup
+		id="oracleSource" 
+		jndi-name="jdbc/oracle" 
+		resource-ref="true"/>
+	
+	<jee:jndi-lookup
+		id="mysqlSource" 
+		jndi-name="jdbc/mysql" 
+		resource-ref="true"/>
+		
+	<bean id="transactionManager" 
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="mysqlSource"/>
+				
+	<bean id="sqlSessionFactoryBean" 
+	 	class="org.mybatis.spring.SqlSessionFactoryBean"
+	 	p:dataSource-ref="mysqlSource"
+	 	p:configLocation="classpath:mybatis/config.xml"/>
+	
+	<bean id="sqlSessionTemplate" 
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>
+	
+	<!-- 모델패키지 하위에 있는 모든 객체들을 빈으로 등록 -->	 	
+	<context:component-scan base-package="com.last.app.model"/>
+			 						
+</beans>
+
+
+
+
+
+
+
